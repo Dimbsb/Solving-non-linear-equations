@@ -10,22 +10,22 @@ function erg2_18
     max_it = 50;
 
     a = 1; b = 6; i = 1;
+    x0 = 6; 
+    x1 = 7;
+    x_previous_bs = b;
+    x_previous_nr = x0; 
+
     fa = feval(f, a);
     fb = feval(f, b);
-    x_previous = b;
     
     fprintf('\n\n\n');
-    fprintf('---- Bisect REC ----\n'); bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it);
+    fprintf('---- Bisect REC ----\n'); bisect_r(x_previous_bs,f,fa,fb,a,b,i,tol,max_it);
     fprintf('---- Bisect  ----\n'); bisect(f,a,b,tol,max_it);
 
-
-    x0 = 6; x_previousnr = x0;
     fprintf('\n\n\n');
     fprintf('--- NewtRaph ---\n'); newton_raphson(f,df,x0,tol,max_it);
-    fprintf('--- NewtRaph Rec ---\n'); newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it);
+    fprintf('--- NewtRaph Rec ---\n'); newton_raphson_r(x_previous_nr,f,df,x0,i,tol,max_it);
 
-
-    x1 = 7; 
     fprintf('\n\n\n');
     fprintf('---- Secant ----\n'); secant(f,x0,x1,tol,max_it);
     fprintf('---- Secant Rec ----\n'); secant_r(f,x0,x1,i,tol,max_it);
@@ -77,12 +77,12 @@ end
 
 
 
-function x = bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it)
+function x = bisect_r(x_previous_bs,f,fa,fb,a,b,i,tol,max_it)
 
 x = (a + b) / 2;
 fx = feval(f, x);
   
-if i>max_it || abs(x - x_previous) < tol
+if i>max_it || abs(x - x_previous_bs) < tol
     fprintf('Iteration %3d: %10.8f\n', i, x);
     return;
 end
@@ -90,14 +90,14 @@ if fx==0
      fprintf('Iteration %3d: %10.8f\n', i, x);
     return ; 
 elseif  fb * fx < 0
-    x_previous = x;
+    x_previous_bs = x;
     fprintf('Iteration %3d: %10.8f\n', i, x);
-    bisect_r(x_previous,f,fx,fb,x,b,i+1,tol,max_it);
+    bisect_r(x_previous_bs,f,fx,fb,x,b,i+1,tol,max_it);
   
 else
-    x_previous = x;
+    x_previous_bs = x;
     fprintf('Iteration %3d: %10.8f\n', i, x);
-    bisect_r(x_previous,f,fa,fx,a,x,i+1,tol,max_it);
+    bisect_r(x_previous_bs,f,fa,fx,a,x,i+1,tol,max_it);
     
 end
 
@@ -137,18 +137,18 @@ end
 
 
 
-function x = newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it)
+function x = newton_raphson_r(x_previous_nr,f,df,x0,i,tol,max_it)
 
- dx = feval(f, x_previousnr) / feval(df, x_previousnr);
- x = x_previousnr - dx;
+ dx = feval(f, x_previous_nr) / feval(df, x_previous_nr);
+ x = x_previous_nr - dx;
 
-if i>max_it || abs(x - x_previousnr) < tol
+if i>max_it || abs(x - x_previous_nr) < tol
     fprintf('Iteration %3d: %10.8f\n', i, x);
     return;
 else 
-x_previousnr = x;
+x_previous_nr = x;
 fprintf('Iteration %3d: %10.8f\n', i, x);
-newton_raphson_r(x_previousnr,f,df,x0,i+1,tol,max_it);
+newton_raphson_r(x_previous_nr,f,df,x0,i+1,tol,max_it);
 end
     
 end
