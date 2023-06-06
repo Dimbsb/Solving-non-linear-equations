@@ -14,20 +14,18 @@ function erg2_18
     fb = feval(f, b);
     x_previous = b;
     
-    fprintf('\n');
     fprintf('-------- Bisect ---------\n'); bisect(f,a,b,tol,max_it);
-    fprintf('------ Bisect Rec ------\n'); bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it);
+    fprintf('\n------ Bisect Rec ------\n'); bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it);
 
     x0 = 6; x_previousnr = x0;
-    fprintf('\n');
+    fprintf('\n\n');
     fprintf('------- NewtRaph --------\n'); newton_raphson(f,df,x0,tol,max_it);
-    fprintf('------ NewtRaph Rec -----\n'); newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it);
-
+    fprintf('\n------ NewtRaph Rec -----\n'); newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it);
 
     x1 = 7; 
-    fprintf('\n');
+    fprintf('\n\n');
     fprintf('------- Secant ---------\n'); secant(f,x0,x1,tol,max_it);
-    fprintf('------ Secant Rec ------\n'); secant_r(f,x0,x1,i,tol,max_it);
+    fprintf('\n------ Secant Rec ------\n'); secant_r(f,x0,x1,i,tol,max_it);
 
 end
 
@@ -104,7 +102,6 @@ function x = bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it)
         fprintf('Iteration %3d: %10.8f\n', i, x);
         bisect_r(x_previous,f,fa,fx,a,x,i+1,tol,max_it);   
     end
-
 end
 
 function x = newton_raphson(f, df, x0, tol, max_it)
@@ -160,7 +157,6 @@ function x = newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it)
         fprintf('Iteration %3d: %10.8f\n', i, x);
         newton_raphson_r(x_previousnr,f,df,x0,i+1,tol,max_it);
     end
-    
 end
 
 function x = secant(f, x0, x1, tol, max_it)
@@ -191,10 +187,6 @@ function x = secant(f, x0, x1, tol, max_it)
     end
 end
 
-
-
-
-
 function x = secant_r(f, x0, x1, i, tol, max_it)
 % Description: Finds a root of f starting from x0, x1 with precision tol
 % using the recurrent secant method
@@ -209,17 +201,17 @@ function x = secant_r(f, x0, x1, i, tol, max_it)
 %   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas!!!
 
-f0 = feval(f, x0);
-f1 = feval(f, x1);
-x = x1 - f1 * (x1 - x0) / (f1 - f0);
-        
-if i>max_it || abs(x - x1) < tol
-    fprintf('Iteration %3d: %10.8f\n', i, x);
-    return;
-else
-fprintf('Iteration %3d: %10.8f\n', i, x);
-secant_r(f, x1, x, i+1, tol, max_it);
-end
+    f0 = feval(f, x0);
+    f1 = feval(f, x1);
+    x = x1 - f1 * (x1 - x0) / (f1 - f0);
+            
+    if i>max_it || abs(x - x1) < tol
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        return;
+    else
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        secant_r(f, x1, x, i+1, tol, max_it);
+    end
     
 end
 
