@@ -197,7 +197,7 @@ function x = secant_r(f, x0, x1, i, tol, max_it)
 %   - i: num of iteration 
 %   = tol: the tolerance
 %   - max_it: the maximum number of iterations
-% Output: 
+% Output:
 %   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas!!!
 
