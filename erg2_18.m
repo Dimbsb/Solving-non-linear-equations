@@ -1,6 +1,5 @@
 % Ergasia 2 - 05_2023
 function erg2_18
-
     clc;
 
     f = @(x) x^2 -4*sin(x);
@@ -81,7 +80,7 @@ function x = bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it)
 %   - max_it: the maximum number of iterations
 % Output: 
 %   - x: the root of f
-% Author: Dimitrios Charistes - Dimitrios Bismpas!!!
+% Author: Dimitrios Charistes - Dimitrios Bismpas
 
     x = (a + b) / 2;
     fx = feval(f, x);
@@ -144,7 +143,7 @@ function x = newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it)
 %   - max_it: the maximum number of iterations
 % Output:
 %   - x: the root of f
-% Author: Dimitrios Charistes - Dimitrios Bismpas!!!
+% Author: Dimitrios Charistes - Dimitrios Bismpas
 
     dx = feval(f, x_previousnr) / feval(df, x_previousnr);
     x = x_previousnr - dx;
@@ -199,7 +198,7 @@ function x = secant_r(f, x0, x1, i, tol, max_it)
 %   - max_it: the maximum number of iterations
 % Output:
 %   - x: the root of f
-% Author: Dimitrios Charistes - Dimitrios Bismpas!!!
+% Author: Dimitrios Charistes - Dimitrios Bismpas
 
     f0 = feval(f, x0);
     f1 = feval(f, x1);
@@ -214,23 +213,3 @@ function x = secant_r(f, x0, x1, i, tol, max_it)
     end
     
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
