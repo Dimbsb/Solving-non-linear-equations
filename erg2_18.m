@@ -1,5 +1,5 @@
+% Ergasia 2 - 05_2023
 function erg2_18
-    % Ergasia 2 - 05_2023
 
     clc;
 
@@ -14,20 +14,20 @@ function erg2_18
     fb = feval(f, b);
     x_previous = b;
     
-    fprintf('\n\n\n');
-    fprintf('---- Bisect  ----\n'); bisect(f,a,b,tol,max_it);
-    fprintf('---- Bisect REC ----\n'); bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it);
+    fprintf('\n');
+    fprintf('-------- Bisect ---------\n'); bisect(f,a,b,tol,max_it);
+    fprintf('------ Bisect Rec ------\n'); bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it);
 
     x0 = 6; x_previousnr = x0;
-    fprintf('\n\n\n');
-    fprintf('--- NewtRaph ---\n'); newton_raphson(f,df,x0,tol,max_it);
-    fprintf('--- NewtRaph Rec ---\n'); newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it);
+    fprintf('\n');
+    fprintf('------- NewtRaph --------\n'); newton_raphson(f,df,x0,tol,max_it);
+    fprintf('------ NewtRaph Rec -----\n'); newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it);
 
 
     x1 = 7; 
-    fprintf('\n\n\n');
-    fprintf('---- Secant ----\n'); secant(f,x0,x1,tol,max_it);
-    fprintf('---- Secant Rec ----\n'); secant_r(f,x0,x1,i,tol,max_it);
+    fprintf('\n');
+    fprintf('------- Secant ---------\n'); secant(f,x0,x1,tol,max_it);
+    fprintf('------ Secant Rec ------\n'); secant_r(f,x0,x1,i,tol,max_it);
 
 end
 
@@ -68,13 +68,8 @@ function x = bisect(f, a, b, tol, max_it)
             return;
         end
         x_previous = x;
+    end
 end
-end
-    
-
-
-
-
 
 function x = bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it)
 % Description: Finds a root of f in the interval [a, b] with precision tol
@@ -90,32 +85,27 @@ function x = bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it)
 %   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas!!!
 
-x = (a + b) / 2;
-fx = feval(f, x);
-  
-if i>max_it || abs(x - x_previous) < tol
-    fprintf('Iteration %3d: %10.8f\n', i, x);
-    return;
-end
-if fx==0
-     fprintf('Iteration %3d: %10.8f\n', i, x);
-    return ; 
-elseif  fb * fx < 0
-    x_previous = x;
-    fprintf('Iteration %3d: %10.8f\n', i, x);
-    bisect_r(x_previous,f,fx,fb,x,b,i+1,tol,max_it);
-  
-else
-    x_previous = x;
-    fprintf('Iteration %3d: %10.8f\n', i, x);
-    bisect_r(x_previous,f,fa,fx,a,x,i+1,tol,max_it);
-    
-end
+    x = (a + b) / 2;
+    fx = feval(f, x);
+      
+    if i>max_it || abs(x - x_previous) < tol
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        return;
+    end
+    if fx==0
+         fprintf('Iteration %3d: %10.8f\n', i, x);
+        return; 
+    elseif  fb * fx < 0
+        x_previous = x;
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        bisect_r(x_previous,f,fx,fb,x,b,i+1,tol,max_it);  
+    else
+        x_previous = x;
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        bisect_r(x_previous,f,fa,fx,a,x,i+1,tol,max_it);   
+    end
 
 end
-
-
-
 
 function x = newton_raphson(f, df, x0, tol, max_it)
 % Description: Finds a root of f starting from x0 with precision tol
@@ -145,9 +135,6 @@ function x = newton_raphson(f, df, x0, tol, max_it)
     end
 end
 
-
-
-
 function x = newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it)
 % Description: Finds a root of f starting from x0 with precision tol
 % using the recurrent Newton-Raphson method
@@ -162,20 +149,19 @@ function x = newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it)
 %   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas!!!
 
- dx = feval(f, x_previousnr) / feval(df, x_previousnr);
- x = x_previousnr - dx;
-
-if i>max_it || abs(x - x_previousnr) < tol
-    fprintf('Iteration %3d: %10.8f\n', i, x);
-    return;
-else 
-x_previousnr = x;
-fprintf('Iteration %3d: %10.8f\n', i, x);
-newton_raphson_r(x_previousnr,f,df,x0,i+1,tol,max_it);
-end
+    dx = feval(f, x_previousnr) / feval(df, x_previousnr);
+    x = x_previousnr - dx;
+    
+    if i>max_it || abs(x - x_previousnr) < tol
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        return;
+    else 
+        x_previousnr = x;
+        fprintf('Iteration %3d: %10.8f\n', i, x);
+        newton_raphson_r(x_previousnr,f,df,x0,i+1,tol,max_it);
+    end
     
 end
-
 
 function x = secant(f, x0, x1, tol, max_it)
 % Description: Finds a root of f starting from x0, x1 with precision tol
