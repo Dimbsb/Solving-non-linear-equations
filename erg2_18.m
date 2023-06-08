@@ -69,17 +69,6 @@ function x = bisect(f, a, b, tol, max_it)
 end
 
 function x = bisect_r(x_previous,f,fa,fb,a,b,i,tol,max_it)
-% Description: Finds a root of f in the interval [a, b] with precision tol
-% using the recurrent bisect method
-% Input: 
-%   - f: the function
-%   - a: the lower value of the interval
-%   - b: the upper value of the interval
-%   - i: num of iteration 
-%   = tol: the tolerance
-%   - max_it: the maximum number of iterations
-% Output: 
-%   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas
 
     x = (a + b) / 2;
@@ -132,17 +121,6 @@ function x = newton_raphson(f, df, x0, tol, max_it)
 end
 
 function x = newton_raphson_r(x_previousnr,f,df,x0,i,tol,max_it)
-% Description: Finds a root of f starting from x0 with precision tol
-% using the recurrent Newton-Raphson method
-% Input:
-%   - f: the function
-%   - df: the derivative of the function
-%   - x0: the initial guess
-%   - i: num of iteration 
-%   = tol: the tolerance
-%   - max_it: the maximum number of iterations
-% Output:
-%   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas
 
     dx = feval(f, x_previousnr) / feval(df, x_previousnr);
@@ -187,17 +165,6 @@ function x = secant(f, x0, x1, tol, max_it)
 end
 
 function x = secant_r(f, x0, x1, i, tol, max_it)
-% Description: Finds a root of f starting from x0, x1 with precision tol
-% using the recurrent secant method
-% Input: 
-%   - f: the function
-%   - x0: the initial guess
-%   - x1: the initial guess
-%   - i: num of iteration 
-%   = tol: the tolerance
-%   - max_it: the maximum number of iterations
-% Output:
-%   - x: the root of f
 % Author: Dimitrios Charistes - Dimitrios Bismpas
 
     f0 = feval(f, x0);
