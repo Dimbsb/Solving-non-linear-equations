@@ -139,7 +139,7 @@ end
 function x = secant(f, x0, x1, tol, max_it)
 % Description: Finds a root of f starting from x0, x1 with precision tol
 % using the secant method
-% Input: 
+% Input:
 %   - f: the function
 %   - x0: the initial guess
 %   - x1: the initial guess
